@@ -10,10 +10,10 @@ const Header = () => {
           className="w-16 sm:w-28"
         />
         <a href="#" className="sm:px-2 sm:py-2.5">
-          Phim
+          Movie
         </a>
         <a href="#" className="sm:px-2 sm:py-2.5">
-          Truyền hình
+          TV Show
         </a>
       </div>
       <IoIosSearch className="size-6 cursor-pointer" />

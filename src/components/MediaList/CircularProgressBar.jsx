@@ -1,9 +1,12 @@
-const CircularProgressBar = ({
-  percent = 70,
-  size = 4,
-  strokeWidth = 0.25,
-}) => {
+const CircularProgressBar = (props) => {
+  const {
+    percent = 0,
+    size = 4,
+    strokeWidth = 0.25,
+    strokeColor = "green",
+  } = props;
   const radius = size / 2 - strokeWidth;
+
   return (
     <div>
       <svg width={`${size}vw`} height={`${size}vw`}>
@@ -18,7 +21,7 @@ const CircularProgressBar = ({
           r={`${radius}vw`}
           cx={`${size / 2}vw`}
           cy={`${size / 2}vw`}
-          stroke="green"
+          stroke={strokeColor}
           strokeWidth={`${strokeWidth}vw`}
           strokeDasharray={`${2 * Math.PI * radius}vw`} // dash => gap => dash
           strokeDashoffset={`${2 * Math.PI * radius - (percent / 100) * (2 * Math.PI * 18)}vw`}
@@ -35,7 +38,7 @@ const CircularProgressBar = ({
           alignmentBaseline="middle"
           textAnchor="middle"
         >
-          {percent}
+          {percent}%
         </text>
       </svg>
     </div>
