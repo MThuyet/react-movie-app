@@ -2,7 +2,7 @@ import { IoIosSearch } from "react-icons/io";
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between bg-slate-950 px-9 py-4 text-white">
+    <header className="flex items-center justify-between bg-slate-950 px-5 py-4 text-white sm:px-9">
       <div className="flex items-center gap-5">
         <img
           src="../public/logoNetflix.png"
