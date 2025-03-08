@@ -22,7 +22,7 @@ const PaginateIndicator = ({ movies, activeMovieId, setActiveMovieId }) => {
       setActiveMovieId(
         index === arrIdMovie.length - 1 ? arrIdMovie[0] : arrIdMovie[index + 1],
       );
-    }, 3000);
+    }, 10000);
 
     return () => clearTimeout(timeoutRef.current);
   }, [movies, activeMovieId]);

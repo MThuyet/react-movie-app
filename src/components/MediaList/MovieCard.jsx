@@ -1,13 +1,13 @@
 import CircularProgressBar from "./CircularProgressBar";
 
 const MovieCard = (props) => {
-  const { data } = props;
+  const { data, type } = props;
   return (
     <div className="relative rounded-lg border border-slate-800">
-      {data.media_type === "tv" && (
-        <p className="absolute top-1 right-1 rounded bg-black p-1 text-sm font-bold text-white shadow-md">
+      {type === "tv" && (
+        <div className="absolute top-0 right-0 z-10 rounded-lg bg-slate-900 px-2 py-1 text-sm text-slate-100">
           TV Show
-        </p>
+        </div>
       )}
       <img
         className="rounded-lg"

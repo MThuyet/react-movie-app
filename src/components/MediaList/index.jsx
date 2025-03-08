@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 
-const MediaList = () => {
+const MediaList = (props) => {
+  const { title, tabs } = props;
   const [mediaList, setMediaList] = useState([]);
+  const [activeTab, setActiveTab] = useState(tabs[0]?.id);
+
   const fetchListTrending = async () => {
-    const res = await fetch("https://api.themoviedb.org/3/trending/all/week", {
+    const url = tabs.find((tab) => tab.id === activeTab)?.url;
+    if (!url) return;
+    const res = await fetch(url, {
       accept: "application/json",
       headers: {
         Authorization:
@@ -19,21 +24,35 @@ const MediaList = () => {
 
   useEffect(() => {
     fetchListTrending();
-  }, []);
+  }, [activeTab]);
 
   return (
     <div className="bg-black px-8 py-10 text-[1.2vw] text-white">
       <div className="mb-6 flex items-center gap-4">
-        <p className="text-[2vw] font-bold">Trending</p>
+        <p className="text-[2vw] font-bold">{title}</p>
         <ul className="flex rounded border border-white">
-          <li className="cursor-pointer bg-white px-4 py-1 text-black">All</li>
-          <li className="cursor-pointer px-4 py-1">Movie</li>
-          <li className="cursor-pointer px-4 py-1">TV Show</li>
+          {tabs.map((item) => {
+            return (
+              <li
+                onClick={() => setActiveTab(item.id)}
+                key={item.id}
+                className={`cursor-pointer px-4 py-1 ${item.id === activeTab && "bg-white text-black"}`}
+              >
+                {item.name}
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
         {mediaList?.map((movie) => {
-          return <MovieCard key={movie.id} data={movie} />;
+          return (
+            <MovieCard
+              key={movie.id}
+              data={movie}
+              type={movie.media_type || activeTab}
+            />
+          );
         })}
       </div>
     </div>

@@ -24,7 +24,7 @@ const CircularProgressBar = (props) => {
           stroke={strokeColor}
           strokeWidth={`${strokeWidth}vw`}
           strokeDasharray={`${2 * Math.PI * radius}vw`} // dash => gap => dash
-          strokeDashoffset={`${2 * Math.PI * radius - (percent / 100) * (2 * Math.PI * 18)}vw`}
+          strokeDashoffset={`${2 * Math.PI * radius * (1 - percent / 100)}vw`}
           transform="rotate(-90)"
           style={{ transformOrigin: "center" }}
           strokeLinecap="round"
