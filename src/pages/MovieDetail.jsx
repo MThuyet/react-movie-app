@@ -76,7 +76,7 @@ const MovieDetail = () => {
               />
             </div>
             <div className="flex-[2]">
-              <p className="mb-5 text-center text-[24px] font-bold sm:mb-8 sm:text-left sm:text-2xl lg:text-3xl">
+              <p className="mb-5 text-center text-[20px] font-bold sm:mb-8 sm:text-left sm:text-xl lg:text-3xl">
                 {dataMovieDetail.title}
               </p>
               <div className="flex items-center gap-4 text-[10px] text-gray-400 sm:text-[12px] md:text-[16px] lg:text-xl">
@@ -115,7 +115,7 @@ const MovieDetail = () => {
                 {Object.keys(crew).map((job) => (
                   <div key={job}>
                     <p className="mb-1.5 font-bold sm:mb-0">{job}</p>
-                    <p className="text-gray-400">
+                    <p className="text-gray-400 sm:text-[1.1vw] md:text-[1.2vw]">
                       {crew[job].map((crew) => crew.name).join(", ")}
                     </p>
                   </div>

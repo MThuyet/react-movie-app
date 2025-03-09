@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CircularProgressBar from "../CircularProgressBar";
 
 const MovieCard = (props) => {
@@ -9,11 +10,13 @@ const MovieCard = (props) => {
           TV Show
         </div>
       )}
-      <img
-        className="cursor-pointer rounded-lg"
-        src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
-        alt=""
-      />
+      <Link to={`/${type}/${data.id}`}>
+        <img
+          className="rounded-lg"
+          src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
+          alt=""
+        />
+      </Link>
       <div className="relative -top-[1.5vw] px-4">
         <CircularProgressBar
           percent={Math.round(data.vote_average * 10)}
