@@ -10,7 +10,7 @@ const MovieCard = (props) => {
         </div>
       )}
       <img
-        className="rounded-lg"
+        className="cursor-pointer rounded-lg"
         src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
         alt=""
       />

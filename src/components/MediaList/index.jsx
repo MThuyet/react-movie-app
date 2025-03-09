@@ -29,14 +29,14 @@ const MediaList = (props) => {
   return (
     <div className="bg-black px-8 py-10 text-[1.2vw] text-white">
       <div className="mb-6 flex items-center gap-4">
-        <p className="text-[2vw] font-bold">{title}</p>
+        <p className="text-[16px] font-bold sm:text-[2vw]">{title}</p>
         <ul className="flex rounded border border-white">
           {tabs.map((item) => {
             return (
               <li
                 onClick={() => setActiveTab(item.id)}
                 key={item.id}
-                className={`cursor-pointer px-4 py-1 ${item.id === activeTab && "bg-white text-black"}`}
+                className={`cursor-pointer px-4 py-1 text-[10px] sm:text-[1.5vw] md:text-[1.2vw] ${item.id === activeTab && "bg-white text-black"}`}
               >
                 {item.name}
               </li>
