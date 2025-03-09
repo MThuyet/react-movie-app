@@ -6,11 +6,9 @@ import Loading from "../Loading";
 const FeatureMovie = () => {
   const [movies, setMovies] = useState([]);
   const [activeMovieId, setActiveMovieId] = useState();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       const res = await fetch("https://api.themoviedb.org/3/movie/popular", {
         accept: "application/json",
         headers: {
@@ -23,23 +21,20 @@ const FeatureMovie = () => {
       const popularMovie = data.results.slice(0, 4);
       setMovies(popularMovie);
       setActiveMovieId(popularMovie[0].id);
-      setIsLoading(false);
     };
 
     fetchData();
   }, []);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <div className="relative text-white">
-      {movies
-        .filter((movie) => movie.id === activeMovieId)
-        .map((movie) => (
-          <Movie key={movie.id} data={movie} />
-        ))}
+      {movies && movies.length > 0 ? (
+        movies
+          .filter((movie) => movie.id === activeMovieId)
+          .map((movie) => <Movie key={movie.id} data={movie} />)
+      ) : (
+        <Loading />
+      )}
       <PaginateIndicator
         movies={movies}
         activeMovieId={activeMovieId}
