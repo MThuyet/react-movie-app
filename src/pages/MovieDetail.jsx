@@ -5,6 +5,7 @@ import Loading from "@components/Loading";
 import Banner from "@components/MediaDetail/Banner";
 import ActorList from "@components/MediaDetail/ActorList";
 import RelatedMediaList from "@components/MediaDetail/RelatedMediaList";
+import MediaInfor from "@components/MediaDetail/MediaInfor";
 
 const MovieDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -109,8 +110,8 @@ const MovieDetail = () => {
         crew={crew}
       />
       <div className="bg-black text-white">
-        <div className="mx-auto flex max-w-screen-xl flex-col gap-6 px-6 py-10 md:flex-row">
-          <div className="md:flex-[2]">
+        <div className="mx-auto flex max-w-screen-xl flex-col gap-8 px-6 py-10 md:flex-row md:gap-10">
+          <div className="order-2 md:order-1 md:flex-[2]">
             <ActorList actors={dataMovieDetail.credits?.cast || []} />
             {isRelatedLoading ? (
               <Loading />
@@ -118,8 +119,8 @@ const MovieDetail = () => {
               <RelatedMediaList dataRelated={dataRelated} />
             )}
           </div>
-          <div className="md:flex-[1]">
-            <p className="mb-2 font-bold md:text-[1.4vw]">Information</p>
+          <div className="order-1 md:order-2 md:flex-[1]">
+            <MediaInfor movieInfor={dataMovieDetail} />
           </div>
         </div>
       </div>

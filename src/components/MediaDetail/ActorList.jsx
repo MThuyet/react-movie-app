@@ -10,7 +10,9 @@ const ActorList = (props) => {
 
   return (
     <div className="mb-8">
-      <p className="mb-2 font-bold md:text-[1.4vw]">Actor</p>
+      <p className="mb-2 text-[20px] font-bold md:text-[1.8vw] lg:text-[1.4vw]">
+        Actor
+      </p>
       <div className="mb-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {currentActors.length === 0 ? (
           <p>No Actor</p>
