@@ -7,7 +7,7 @@ const Banner = (props) => {
   return (
     <>
       {dataMovieDetail && (
-        <div className="relative overflow-hidden text-white">
+        <div className="relative overflow-hidden text-white shadow-sm shadow-slate-800">
           <img
             className="absolute inset-0 h-full w-full object-cover brightness-[0.2] sm:h-auto"
             src={`https://image.tmdb.org/t/p/original/${dataMovieDetail.backdrop_path}`}
