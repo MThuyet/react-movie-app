@@ -1,4 +1,5 @@
 import { FaPlay } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Movie = (props) => {
   const { data } = props;
@@ -29,9 +30,11 @@ const Movie = (props) => {
                 <FaPlay />
                 Trailer
               </button>
-              <button className="cursor-pointer rounded bg-slate-300/35 px-2 py-2 text-[10px] sm:px-4 lg:text-lg">
-                View Detail
-              </button>
+              <Link to={`/movie/${data.id}`}>
+                <button className="cursor-pointer rounded bg-slate-300/35 px-2 py-2 text-[10px] sm:px-4 lg:text-lg">
+                  View Detail
+                </button>
+              </Link>
             </div>
           </div>
         </>
