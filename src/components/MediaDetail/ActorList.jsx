@@ -8,7 +8,7 @@ const ActorList = (props) => {
   const currentActors = isShowMore ? actors.slice(0, 32) : actors.slice(0, 4);
 
   return (
-    <div>
+    <div className="mb-8">
       <p className="mb-2 font-bold md:text-[1.4vw]">Actor</p>
       <div className="mb-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
         {currentActors.map((actor) => (
