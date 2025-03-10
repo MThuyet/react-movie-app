@@ -1,5 +1,5 @@
+import MovieCard from "@components/MovieCard";
 import { useEffect, useState } from "react";
-import MovieCard from "./MovieCard";
 
 const MediaList = (props) => {
   const { title, tabs } = props;
@@ -24,6 +24,7 @@ const MediaList = (props) => {
 
   useEffect(() => {
     fetchListTrending();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
 
   return (

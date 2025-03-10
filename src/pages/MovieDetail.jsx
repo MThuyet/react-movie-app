@@ -13,6 +13,8 @@ const MovieDetail = () => {
   const [genres, setGenres] = useState([]);
   const [certification, setCertification] = useState("");
   const [crew, setCrew] = useState([]);
+  const [isRelatedLoading, setIsRelatedLoading] = useState(false);
+  const [dataRelated, setDataRelated] = useState([]);
 
   const fetchMovieDetail = async () => {
     setIsLoading(true);
@@ -63,8 +65,35 @@ const MovieDetail = () => {
     setIsLoading(false);
   };
 
+  const fetchMovieRelated = async () => {
+    setIsRelatedLoading(true);
+    try {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}/recommendations`,
+        {
+          accept: "application/json",
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDZjN2MxY2YzMzkyMjg2ZWM5MTgwNTMyYjgzYzI2MSIsIm5iZiI6MTc0MDk4MjM4MS45OTQsInN1YiI6IjY3YzU0ODZkNTY0ZDI1NzVkOTkxZjAzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lyoglfRZZoNuu3QN8-RcSWMZCoPthTNlpJgEhsUM-R8",
+          },
+        },
+      );
+
+      const data = await res.json();
+      if (data) {
+        const slicedData = data.results.slice(0, 12);
+        setDataRelated(slicedData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsRelatedLoading(false);
+  };
+
   useEffect(() => {
     fetchMovieDetail();
+    fetchMovieRelated();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
 
   if (isLoading) {
@@ -83,7 +112,11 @@ const MovieDetail = () => {
         <div className="mx-auto flex max-w-screen-xl flex-col gap-6 px-6 py-10 md:flex-row">
           <div className="md:flex-[2]">
             <ActorList actors={dataMovieDetail.credits?.cast || []} />
-            <RelatedMediaList />
+            {isRelatedLoading ? (
+              <Loading />
+            ) : (
+              <RelatedMediaList dataRelated={dataRelated} />
+            )}
           </div>
           <div className="md:flex-[1]">
             <p className="mb-2 font-bold md:text-[1.4vw]">Information</p>

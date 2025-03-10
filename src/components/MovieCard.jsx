@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CircularProgressBar from "../CircularProgressBar";
+import CircularProgressBar from "./CircularProgressBar";
 
 const MovieCard = (props) => {
   const { data, type } = props;
@@ -28,10 +28,10 @@ const MovieCard = (props) => {
                 : "red"
           }
         />
-        <p className="mt-2 text-[1.8vw] font-bold sm:text-[1vw]">
+        <p className="mt-2 text-[14px] font-bold sm:text-[1.6vw] md:text-[1.4vw] lg:text-[1.2vw]">
           {data.title || data.name}
         </p>
-        <p className="mt-1 text-slate-300 md:text-[0.9vw]">
+        <p className="mt-1 text-[12px] text-slate-300 sm:text-[1.4vw] md:text-[1.1vw]">
           {data.release_date || data.first_air_date}
         </p>
       </div>
