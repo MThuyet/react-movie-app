@@ -11,6 +11,8 @@ const ActorInfo = (props) => {
             : "/ActorNoImage.svg"
         }
         alt=""
+        width={276}
+        height={350}
       />
       <div className="p-3">
         <p className="font-bold sm:text-[1.5vw] md:text-[1vw]">{data.name}</p>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ActorInfo from "./ActorInfo";
-import Loading from "@components/Loading";
 
 const ActorList = (props) => {
   const { actors } = props;

@@ -12,7 +12,9 @@ const MovieCard = (props) => {
       )}
       <Link to={`/${type}/${data.id}`}>
         <img
-          className="rounded-lg"
+          className="w-full rounded-lg"
+          width={200}
+          height={300}
           src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
           alt=""
         />

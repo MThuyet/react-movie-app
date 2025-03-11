@@ -10,15 +10,25 @@ const Banner = (props) => {
         <div className="relative overflow-hidden text-white shadow-sm shadow-slate-800">
           <img
             className="absolute inset-0 h-full w-full object-cover brightness-[0.2] sm:h-auto"
-            src={`https://image.tmdb.org/t/p/original/${dataMovieDetail.backdrop_path}`}
+            src={
+              dataMovieDetail.backdrop_path
+                ? `https://image.tmdb.org/t/p/original/${dataMovieDetail.backdrop_path}`
+                : "/ActorNoImage.svg"
+            }
             alt=""
           />
           <div className="relative mx-auto flex max-w-screen-xl flex-col gap-8 px-6 py-10 sm:flex-row sm:gap-6">
             <div className="flex-[1]">
               <img
                 className="w-full object-cover"
-                src={`https://image.tmdb.org/t/p/w500/${dataMovieDetail.poster_path}`}
+                src={
+                  dataMovieDetail.poster_path
+                    ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${dataMovieDetail.poster_path}`
+                    : "/ActorNoImage.svg"
+                }
                 alt=""
+                width={600}
+                height={900}
               />
             </div>
             <div className="flex-[2]">
