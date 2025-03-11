@@ -1,4 +1,5 @@
 import MovieCard from "@components/MovieCard";
+import useFetch from "@hooks/useFetch";
 import { useEffect, useState } from "react";
 
 const MediaList = (props) => {
@@ -6,25 +7,17 @@ const MediaList = (props) => {
   const [mediaList, setMediaList] = useState([]);
   const [activeTab, setActiveTab] = useState(tabs[0]?.id);
 
-  const fetchListTrending = async () => {
-    const url = tabs.find((tab) => tab.id === activeTab)?.url;
-    if (!url) return;
-    const res = await fetch(url, {
-      accept: "application/json",
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-      },
-    });
-
-    const data = await res.json();
-    const slicedData = data.results.slice(0, 12);
-    setMediaList(slicedData);
-  };
+  const url = tabs.find((tab) => tab.id === activeTab)?.url;
+  const { data } = useFetch({ url });
 
   useEffect(() => {
-    fetchListTrending();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab]);
+    if (!data) return;
+    const slicedData = data.results.slice(0, 12);
+    setMediaList(slicedData);
+  }, [data, url]);
+
+  if (!url) return null;
+  if (!data) return;
 
   return (
     <div className="bg-black px-8 py-10 text-[1.2vw] text-white">

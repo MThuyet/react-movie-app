@@ -2,28 +2,22 @@ import PaginateIndicator from "./PaginateIndicator";
 import Movie from "./Movie";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
+import useFetch from "@hooks/useFetch";
 
 const FeatureMovie = () => {
-  const [movies, setMovies] = useState([]);
   const [activeMovieId, setActiveMovieId] = useState();
+  const [movies, setMovies] = useState([]);
+
+  const { data } = useFetch({
+    url: "/movie/popular",
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("https://api.themoviedb.org/3/movie/popular", {
-        accept: "application/json",
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      });
-
-      const data = await res.json();
-      const popularMovie = data.results.slice(0, 4);
-      setMovies(popularMovie);
-      setActiveMovieId(popularMovie[0].id);
-    };
-
-    fetchData();
-  }, []);
+    if (!data) return;
+    const popularMovie = data.results.slice(0, 4);
+    setMovies(popularMovie);
+    setActiveMovieId(popularMovie[0].id);
+  }, [data]);
 
   return (
     <div className="relative text-white">

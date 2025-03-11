@@ -6,9 +6,9 @@ import Banner from "@components/MediaDetail/Banner";
 import ActorList from "@components/MediaDetail/ActorList";
 import RelatedMediaList from "@components/MediaDetail/RelatedMediaList";
 import MediaInfor from "@components/MediaDetail/MediaInfor";
+import useFetch from "@hooks/useFetch";
 
 const MovieDetail = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
   const [dataMovieDetail, setDataMovieDetail] = useState({});
   const [genres, setGenres] = useState([]);
@@ -17,83 +17,49 @@ const MovieDetail = () => {
   const [isRelatedLoading, setIsRelatedLoading] = useState(false);
   const [dataRelated, setDataRelated] = useState([]);
 
-  const fetchMovieDetail = async () => {
-    setIsLoading(true);
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=release_dates,credits`,
-        {
-          accept: "application/json",
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-          },
-        },
-      );
-
-      const data = await res.json();
-      if (data) {
-        setDataMovieDetail(data);
-
-        // custom data genres
-        let dataGenres = data.genres.map((genres) => genres.name);
-        setGenres(dataGenres.join(", "));
-
-        // data certification
-        let dataCertification = data.release_dates?.results
-          .find((result) => result.iso_3166_1 === "US")
-          ?.release_dates.find(
-            (release_date) => release_date.certification,
-          )?.certification;
-        setCertification(dataCertification);
-
-        // data crew
-        let dataCrew = data.credits?.crew
-          .filter((crew) =>
-            ["Director", "Screenplay", "Writer"].includes(crew.job),
-          )
-          .map((crew) => ({
-            id: crew.id,
-            name: crew.name,
-            job: crew.job,
-          }));
-        const groupedCrew = groupBy(dataCrew, "job");
-        setCrew(groupedCrew);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
-
-  const fetchMovieRelated = async () => {
-    setIsRelatedLoading(true);
-    try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}/recommendations`,
-        {
-          accept: "application/json",
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-          },
-        },
-      );
-
-      const data = await res.json();
-      if (data) {
-        const slicedData = data.results.slice(0, 12);
-        setDataRelated(slicedData);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setIsRelatedLoading(false);
-  };
+  const { isLoading, data: movieDetail } = useFetch({
+    url: `/movie/${movieId}?append_to_response=release_dates,credits`,
+  });
 
   useEffect(() => {
-    fetchMovieDetail();
-    fetchMovieRelated();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [movieId]);
+    if (!movieDetail) return;
+    setDataMovieDetail(movieDetail);
+
+    // custom data genres
+    let dataGenres = movieDetail.genres.map((genres) => genres.name);
+    setGenres(dataGenres.join(", "));
+
+    // data certification
+    let dataCertification = movieDetail.release_dates?.results
+      .find((result) => result.iso_3166_1 === "US")
+      ?.release_dates.find(
+        (release_date) => release_date.certification,
+      )?.certification;
+    setCertification(dataCertification);
+
+    // data crew
+    let dataCrew = movieDetail.credits?.crew
+      .filter((crew) => ["Director", "Screenplay", "Writer"].includes(crew.job))
+      .map((crew) => ({
+        id: crew.id,
+        name: crew.name,
+        job: crew.job,
+      }));
+    const groupedCrew = groupBy(dataCrew, "job");
+    setCrew(groupedCrew);
+  }, [movieDetail, isLoading, movieId]);
+
+  const { isLoading: isLoadingRelated, data: dataRelatedFetch } = useFetch({
+    url: `/movie/${movieId}/recommendations`,
+    method: "GET",
+  });
+
+  useEffect(() => {
+    if (!dataRelatedFetch) return;
+    const slicedData = dataRelatedFetch.results.slice(0, 12);
+    setDataRelated(slicedData);
+    setIsRelatedLoading(isLoadingRelated);
+  }, [dataRelatedFetch, movieId, isLoadingRelated]);
 
   if (isLoading) {
     return <Loading />;
