@@ -1,3 +1,4 @@
+import ImageBlur from "@components/ImageBlur";
 import CircularProgressBar from "../CircularProgressBar";
 import { FaPlay } from "react-icons/fa";
 
@@ -19,12 +20,11 @@ const Banner = (props) => {
           />
           <div className="relative mx-auto flex max-w-screen-xl flex-col gap-8 px-6 py-10 sm:flex-row sm:gap-6">
             <div className="flex-[1]">
-              <img
+              <ImageBlur
                 className="w-full object-cover"
                 src={
-                  dataMovieDetail.poster_path
-                    ? `https://image.tmdb.org/t/p/w600_and_h900_bestv2${dataMovieDetail.poster_path}`
-                    : "/ActorNoImage.svg"
+                  dataMovieDetail.poster_path &&
+                  `https://image.tmdb.org/t/p/w600_and_h900_bestv2${dataMovieDetail.poster_path}`
                 }
                 alt=""
                 width={600}

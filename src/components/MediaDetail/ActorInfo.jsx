@@ -1,9 +1,11 @@
+import ImageBlur from "@components/ImageBlur";
+
 const ActorInfo = (props) => {
   const { data } = props;
 
   return (
     <div className="rounded-lg border border-slate-300 bg-black shadow-sm">
-      <img
+      <ImageBlur
         className="rounded-lg"
         src={
           data.profile_path

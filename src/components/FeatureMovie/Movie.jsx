@@ -1,3 +1,4 @@
+import ImageBlur from "@components/ImageBlur";
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -7,7 +8,9 @@ const Movie = (props) => {
     <>
       {data && (
         <>
-          <img
+          <ImageBlur
+            width={900}
+            height={500}
             src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`}
             alt="Banner"
             className="aspect-video w-full object-cover brightness-50"

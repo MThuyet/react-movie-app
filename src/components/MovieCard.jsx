@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import CircularProgressBar from "./CircularProgressBar";
+import ImageBlur from "./ImageBlur";
 
 const MovieCard = (props) => {
   const { data, type } = props;
@@ -11,12 +12,11 @@ const MovieCard = (props) => {
         </div>
       )}
       <Link to={`/${type}/${data.id}`}>
-        <img
-          className="w-full rounded-lg"
+        <ImageBlur
+          src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
           width={200}
           height={300}
-          src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
-          alt=""
+          className="w-full rounded-lg"
         />
       </Link>
       <div className="relative -top-[1.5vw] px-4">
