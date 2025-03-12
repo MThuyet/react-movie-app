@@ -7,10 +7,11 @@ import ActorList from "@components/MediaDetail/ActorList";
 import RelatedMediaList from "@components/MediaDetail/RelatedMediaList";
 import MovieInfor from "@components/MediaDetail/MovieInfor";
 import useFetch from "@hooks/useFetch";
+import TVShowInfor from "@components/MediaDetail/TVShowInfor";
 
-const MovieDetail = () => {
+const TVShowDetail = () => {
   const { movieId } = useParams();
-  const [dataMovieDetail, setDataMovieDetail] = useState({});
+  const [dataTVDetail, setDataTVDetail] = useState({});
   const [genres, setGenres] = useState([]);
   const [certification, setCertification] = useState("");
   const [crew, setCrew] = useState([]);
@@ -18,39 +19,42 @@ const MovieDetail = () => {
   const [dataRelated, setDataRelated] = useState([]);
 
   const { isLoading, data: movieDetail } = useFetch({
-    url: `/movie/${movieId}?append_to_response=release_dates,credits`,
+    url: `/tv/${movieId}?append_to_response=content_ratings,aggregate_credits`,
   });
 
   useEffect(() => {
     if (!movieDetail) return;
-    setDataMovieDetail(movieDetail);
+    setDataTVDetail(movieDetail);
 
     // custom data genres
     let dataGenres = movieDetail.genres.map((genres) => genres.name);
     setGenres(dataGenres.join(", "));
 
     // data certification
-    let dataCertification = movieDetail.release_dates?.results
-      .find((result) => result.iso_3166_1 === "US")
-      ?.release_dates.find(
-        (release_date) => release_date.certification,
-      )?.certification;
+    let dataCertification = movieDetail.content_ratings?.results.find(
+      (result) => result.iso_3166_1 === "US",
+    )?.rating;
     setCertification(dataCertification);
 
     // data crew
-    let dataCrew = movieDetail.credits?.crew
-      .filter((crew) => ["Director", "Screenplay", "Writer"].includes(crew.job))
+    let dataCrew = movieDetail.aggregate_credits?.crew
+      .filter((crew) => {
+        const jobs = crew.jobs.map((job) => job.job);
+        return ["Director", "Writer"].some((job) =>
+          jobs.find((j) => j === job),
+        );
+      })
       .map((crew) => ({
         id: crew.id,
         name: crew.name,
-        job: crew.job,
+        job: crew.jobs[0].job,
       }));
     const groupedCrew = groupBy(dataCrew, "job");
     setCrew(groupedCrew);
   }, [movieDetail, isLoading, movieId]);
 
   const { isLoading: isLoadingRelated, data: dataRelatedFetch } = useFetch({
-    url: `/movie/${movieId}/recommendations`,
+    url: `/tv/${movieId}/recommendations`,
     method: "GET",
   });
 
@@ -68,12 +72,12 @@ const MovieDetail = () => {
   return (
     <>
       <Banner
-        title={dataMovieDetail.title}
-        backdropPath={dataMovieDetail.backdrop_path}
-        posterPath={dataMovieDetail.poster_path}
-        releaseDate={dataMovieDetail.release_date}
-        overview={dataMovieDetail.overview}
-        point={dataMovieDetail.vote_average}
+        title={dataTVDetail.name}
+        backdropPath={dataTVDetail.backdrop_path}
+        posterPath={dataTVDetail.poster_path}
+        releaseDate={dataTVDetail.first_air_date}
+        overview={dataTVDetail.overview}
+        point={dataTVDetail.vote_average}
         genres={genres}
         certification={certification}
         crew={crew}
@@ -81,7 +85,15 @@ const MovieDetail = () => {
       <div className="bg-black text-white">
         <div className="mx-auto flex max-w-screen-xl flex-col gap-8 px-6 py-10 md:flex-row md:gap-10">
           <div className="order-2 md:order-1 md:flex-[2]">
-            <ActorList actors={dataMovieDetail.credits?.cast || []} />
+            <ActorList
+              actors={(dataTVDetail.aggregate_credits?.cast || []).map(
+                (actor) => ({
+                  ...actor,
+                  character: actor.roles[0]?.character,
+                  episode_count: actor.roles[0]?.episode_count,
+                }),
+              )}
+            />
             {isRelatedLoading ? (
               <Loading />
             ) : (
@@ -89,11 +101,11 @@ const MovieDetail = () => {
             )}
           </div>
           <div className="order-1 md:order-2 md:flex-[1]">
-            <MovieInfor movieInfor={dataMovieDetail} />
+            <TVShowInfor TVShowInfor={dataTVDetail} />
           </div>
         </div>
       </div>
     </>
   );
 };
-export default MovieDetail;
+export default TVShowDetail;
