@@ -8,6 +8,7 @@ import RelatedMediaList from "@components/MediaDetail/RelatedMediaList";
 import MovieInfor from "@components/MediaDetail/MovieInfor";
 import useFetch from "@hooks/useFetch";
 import TVShowInfor from "@components/MediaDetail/TVShowInfor";
+import SessionList from "@components/MediaDetail/SeasonsList";
 
 const TVShowDetail = () => {
   const { movieId } = useParams();
@@ -97,7 +98,10 @@ const TVShowDetail = () => {
             {isRelatedLoading ? (
               <Loading />
             ) : (
-              <RelatedMediaList dataRelated={dataRelated} />
+              <>
+                <SessionList seasons={dataTVDetail.seasons} />
+                <RelatedMediaList dataRelated={dataRelated} />
+              </>
             )}
           </div>
           <div className="order-1 md:order-2 md:flex-[1]">
