@@ -8,16 +8,21 @@ const ImageBlur = (props) => {
 
   useEffect(() => {
     const image = new Image();
-    image.src = src;
-    image.onload = () => {
-      setCurrentSrc(src);
-    };
+    if (src) {
+      image.src = src;
+      image.onload = () => {
+        setCurrentSrc(src);
+      };
+      return;
+    }
+
+    setCurrentSrc(`https://placehold.co/${width}x${height}?text=No Image`);
 
     // clean up function
     return () => {
       image.onload = null;
     };
-  }, [src]);
+  }, [src, width, height]);
 
   return (
     <img

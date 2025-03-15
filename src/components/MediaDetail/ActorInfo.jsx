@@ -23,9 +23,11 @@ const ActorInfo = (props) => {
         <p className="flex-1 sm:text-[1.2vw] md:text-[0.9vw]">
           {data.character}
         </p>
-        <p className="flex-1 sm:text-[1.2vw] md:text-[0.9vw]">
-          {data.episode_count} Episode
-        </p>
+        {data.episode_count && (
+          <p className="flex-1 sm:text-[1.2vw] md:text-[0.9vw]">
+            {data.episode_count} Episode
+          </p>
+        )}
       </div>
     </div>
   );
