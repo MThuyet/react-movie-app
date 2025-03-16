@@ -1,9 +1,12 @@
 import ImageBlur from "@components/ImageBlur";
+import { useModalContext } from "@context/ModalProvider";
 import { FaPlay } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Movie = (props) => {
-  const { data } = props;
+  const { data, trailerKey } = props;
+  const { setIsOpen, setContent } = useModalContext();
+
   return (
     <>
       {data && (
@@ -29,7 +32,24 @@ const Movie = (props) => {
               </div>
             </div>
             <div className="mt-5 flex items-center gap-2">
-              <button className="flex cursor-pointer items-center gap-1 rounded bg-white px-2 py-2 text-[10px] text-black sm:px-4 lg:text-lg">
+              <button
+                onClick={() => {
+                  setIsOpen(true);
+                  setContent(
+                    <iframe
+                      allowFullScreen
+                      width="560"
+                      height="315"
+                      src={`https://www.youtube.com/embed/${trailerKey}`}
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                    ></iframe>,
+                  );
+                }}
+                className="flex cursor-pointer items-center gap-1 rounded bg-white px-2 py-2 text-[10px] text-black sm:px-4 lg:text-lg"
+              >
                 <FaPlay />
                 Trailer
               </button>

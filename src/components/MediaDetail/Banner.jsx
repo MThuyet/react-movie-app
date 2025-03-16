@@ -1,6 +1,7 @@
 import ImageBlur from "@components/ImageBlur";
 import CircularProgressBar from "../CircularProgressBar";
 import { FaPlay } from "react-icons/fa";
+import { useModalContext } from "@context/ModalProvider";
 
 const Banner = (props) => {
   const {
@@ -13,7 +14,10 @@ const Banner = (props) => {
     releaseDate,
     point = 0,
     overview,
+    trailerKey,
   } = props;
+
+  const { setIsOpen, setContent } = useModalContext();
 
   return (
     <>
@@ -61,7 +65,24 @@ const Banner = (props) => {
                   Rating
                 </span>
               </div>
-              <button className="flex cursor-pointer items-center gap-1 rounded border px-2 py-1 sm:px-2 sm:py-1 md:px-2.5 md:py-1.5">
+              <button
+                onClick={() => {
+                  setIsOpen(true);
+                  setContent(
+                    <iframe
+                      allowFullScreen
+                      width="560"
+                      height="315"
+                      src={`https://www.youtube.com/embed/${trailerKey}`}
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                    ></iframe>,
+                  );
+                }}
+                className="flex cursor-pointer items-center gap-1 rounded border px-2 py-1 sm:px-2 sm:py-1 md:px-2.5 md:py-1.5"
+              >
                 <FaPlay className="text-[10px]" />
                 <span className="text-[10px] text-gray-400 lg:text-[1.1vw]">
                   Trailer

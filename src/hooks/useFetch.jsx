@@ -5,7 +5,10 @@ const DEFAULT_HEADER = {
   Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
 };
 
-const useFetch = ({ url = "", method = "GET", header = {} }) => {
+const useFetch = (
+  { url = "", method = "GET", header = {} },
+  { enabled } = { enabled: true },
+) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,6 +34,7 @@ const useFetch = ({ url = "", method = "GET", header = {} }) => {
   };
 
   useEffect(() => {
+    if (!enabled) return;
     fetchData();
   }, [url, method]);
   return { isLoading, data };

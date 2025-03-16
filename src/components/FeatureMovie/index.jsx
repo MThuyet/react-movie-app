@@ -12,6 +12,13 @@ const FeatureMovie = () => {
     url: "/movie/popular",
   });
 
+  const { data: dataVideo } = useFetch(
+    {
+      url: `/movie/${activeMovieId}/videos`,
+    },
+    { enabled: !!activeMovieId },
+  );
+
   useEffect(() => {
     if (!data) return;
     const popularMovie = data.results.slice(0, 4);
@@ -24,7 +31,18 @@ const FeatureMovie = () => {
       {movies && movies.length > 0 ? (
         movies
           .filter((movie) => movie.id === activeMovieId)
-          .map((movie) => <Movie key={movie.id} data={movie} />)
+          .map((movie) => (
+            <Movie
+              key={movie.id}
+              data={movie}
+              trailerKey={
+                dataVideo?.results.find(
+                  (video) =>
+                    video.type === "Trailer" && video.site === "YouTube",
+                )?.key
+              }
+            />
+          ))
       ) : (
         <Loading />
       )}
