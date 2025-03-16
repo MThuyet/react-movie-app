@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Movie = (props) => {
   const { data, trailerKey } = props;
-  const { setIsOpen, setContent } = useModalContext();
+  const { openPopup } = useModalContext();
 
   return (
     <>
@@ -34,8 +34,7 @@ const Movie = (props) => {
             <div className="mt-5 flex items-center gap-2">
               <button
                 onClick={() => {
-                  setIsOpen(true);
-                  setContent(
+                  openPopup(
                     <iframe
                       allowFullScreen
                       width="560"

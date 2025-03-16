@@ -17,7 +17,7 @@ const Banner = (props) => {
     trailerKey,
   } = props;
 
-  const { setIsOpen, setContent } = useModalContext();
+  const { openPopup } = useModalContext();
 
   return (
     <>
@@ -67,8 +67,7 @@ const Banner = (props) => {
               </div>
               <button
                 onClick={() => {
-                  setIsOpen(true);
-                  setContent(
+                  openPopup(
                     <iframe
                       allowFullScreen
                       width="560"
