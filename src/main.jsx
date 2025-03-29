@@ -7,6 +7,7 @@ import MovieDetail from "@pages/MovieDetail.jsx";
 import HomePage from "@pages/HomePage";
 import RootLayout from "@pages/RootLayout.jsx";
 import ModalProvider from "@context/ModalProvider";
+import PeoplePage from "@pages/PeoplePage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/tv/:movieId",
         element: <TVShowDetail />,
+      },
+      {
+        path: "/people/:id",
+        element: <PeoplePage />,
       },
     ],
   },
