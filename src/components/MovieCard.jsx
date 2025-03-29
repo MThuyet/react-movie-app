@@ -13,7 +13,10 @@ const MovieCard = (props) => {
       )}
       <Link to={`/${type}/${data.id}`}>
         <ImageBlur
-          src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}
+          src={
+            data.poster_path &&
+            `https://image.tmdb.org/t/p/w500/${data.poster_path}`
+          }
           width={200}
           height={300}
           className="w-full rounded-lg"

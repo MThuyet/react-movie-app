@@ -14,7 +14,10 @@ const Movie = (props) => {
           <ImageBlur
             width={900}
             height={500}
-            src={`https://image.tmdb.org/t/p/original/${data.backdrop_path}`}
+            src={
+              data.backdrop_path &&
+              `https://image.tmdb.org/t/p/original/${data.backdrop_path}`
+            }
             alt="Banner"
             className="aspect-video w-full object-cover brightness-50"
           />

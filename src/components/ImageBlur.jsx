@@ -26,7 +26,9 @@ const ImageBlur = (props) => {
 
   return (
     <img
-      className={currentSrc === src ? className : `${className} blur-sm`}
+      className={
+        currentSrc === src || !src ? className : `${className} blur-sm`
+      }
       width={width}
       height={height}
       src={currentSrc}

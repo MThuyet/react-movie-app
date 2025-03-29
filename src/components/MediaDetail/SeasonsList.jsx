@@ -21,7 +21,10 @@ const SeasonsList = (props) => {
                 className="m-auto h-[295px] w-[230px] rounded-lg object-cover sm:m-0 sm:h-[195px] sm:w-[130px]"
                 width={130}
                 height={195}
-                src={`https://image.tmdb.org/t/p/w300${season.poster_path}`}
+                src={
+                  season.poster_path &&
+                  `https://image.tmdb.org/t/p/w300${season.poster_path}`
+                }
                 alt=""
               />
               <div className="space-y-1">

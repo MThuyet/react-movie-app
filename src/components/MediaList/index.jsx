@@ -29,7 +29,7 @@ const MediaList = (props) => {
               <li
                 onClick={() => setActiveTab(item.id)}
                 key={item.id}
-                className={`cursor-pointer px-4 py-1 text-[10px] sm:text-[1.5vw] md:text-[1.2vw] ${item.id === activeTab && "bg-white text-black"}`}
+                className={`cursor-pointer px-4 py-1 text-[10px] text-nowrap sm:text-[1.5vw] md:text-[1.2vw] ${item.id === activeTab && "bg-white text-black"}`}
               >
                 {item.name}
               </li>

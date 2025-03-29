@@ -1,14 +1,8 @@
 import ImageBlur from "@components/ImageBlur";
 import RelatedMediaList from "@components/MediaDetail/RelatedMediaList";
+import { GENDER_MAPPING } from "@libs/constants";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-
-const GENDER_MAPPING = {
-  0: "Not set/ not specified",
-  1: "Female",
-  2: "Male",
-  3: "Non-binary",
-};
 
 const PeoplePage = () => {
   const data = useLoaderData();
@@ -19,7 +13,10 @@ const PeoplePage = () => {
         <div className="flex flex-col gap-6 md:flex-row">
           <div className="flex-1">
             <ImageBlur
-              src={`https://media.themoviedb.org/t/p/w600_and_h900_bestv2/${data.profile_path}`}
+              src={
+                data.profile_path &&
+                `https://media.themoviedb.org/t/p/w600_and_h900_bestv2/${data.profile_path}`
+              }
               width={900}
               height={600}
               alt=""
