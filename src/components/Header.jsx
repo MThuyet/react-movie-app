@@ -15,7 +15,9 @@ const Header = () => {
           TV Show
         </a>
       </div>
-      <IoIosSearch className="size-6 cursor-pointer" />
+      <Link to="/search">
+        <IoIosSearch className="size-6 cursor-pointer" />
+      </Link>
     </header>
   );
 };

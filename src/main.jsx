@@ -2,12 +2,13 @@ import React, { lazy, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./global.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import TVShowDetail from "@pages/TVShowDetail.jsx";
 import RootLayout from "@pages/RootLayout.jsx";
 import ModalProvider from "@context/ModalProvider";
 const MovieDetail = lazy(() => import("@pages/MovieDetail"));
 const PeoplePage = lazy(() => import("@pages/PeoplePage"));
 const HomePage = lazy(() => import("@pages/HomePage"));
+const TVShowDetail = lazy(() => import("@pages/TVShowDetail"));
+const SearchPage = lazy(() => import("@pages/SearchPage"));
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
           );
           return res;
         },
+      },
+      {
+        path: "/search",
+        element: <SearchPage />,
       },
     ],
   },
