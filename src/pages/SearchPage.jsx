@@ -16,7 +16,7 @@ const SearchPage = () => {
       : searchFormValue.rating.split(" - ");
 
   const { data } = useFetch({
-    url: `/discover/${searchFormValue.media_type}?sort_by=popularity.desc&with_genres=${searchFormValue.genres.join(",")}&vote_average.gte=${minRating / 10}&vote_average.lte=${maxRating / 10}`,
+    url: `/discover/${searchFormValue.media_type}?with_genres=${searchFormValue.genres.join(",")}&vote_average.gte=${minRating / 10}&vote_average.lte=${maxRating / 10}`,
   });
 
   return (

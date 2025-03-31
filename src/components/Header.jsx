@@ -8,12 +8,12 @@ const Header = () => {
         <Link to="/">
           <img src="/logoNetflix.png" alt="Netflix" className="w-16 sm:w-28" />
         </Link>
-        <a href="#" className="sm:px-2 sm:py-2.5">
+        <Link to="/search?media_type=movie" className="sm:px-2 sm:py-2.5">
           Movie
-        </a>
-        <a href="#" className="sm:px-2 sm:py-2.5">
+        </Link>
+        <Link to="/search?media_type=tv" className="sm:px-2 sm:py-2.5">
           TV Show
-        </a>
+        </Link>
       </div>
       <Link to="/search">
         <IoIosSearch className="size-6 cursor-pointer" />
